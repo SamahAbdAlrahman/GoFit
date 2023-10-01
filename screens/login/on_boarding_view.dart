@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofit_frontend/screens/login/login_screen.dart';
 import '../../common/color_extension.dart';
 
+import 'package:gofit_frontend/screens/main_tab/main_tab_view.dart';
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({Key? key}) : super(key: key);
 
@@ -22,26 +23,27 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       "image": "assets/img/o.png",
     },
     {
+      "title": "Have nice body",
+      "subtitle":
+      "Bad body shape, poor sleep, lack of strength, weight gain, weak bones, easily traumatized body, depressed, stressed, poor metabolism, poor resistance",
+      "image": "assets/img/j9.png",
+      // nicebody.png
+      // on_board_3.png
+    },
+    {
       "title": "Be stronger",
       "subtitle":
       "Take 30 minutes of bodybuilding every day\nto get physically fit and healthy.",
-      "image": "assets/img/2i.jfif",
+      "image": "assets/img/str.png",
     },
     {
       "title": "Have a good health",
       "subtitle":
       "Being healthy is all, no health is nothing. So why do not we",
       "image": "assets/img/hel.jfif",
+      //hel.jfif
       // hel2.png
       // hel.jfif
-    },
-    {
-      "title": "Have nice body",
-      "subtitle":
-      "Bad body shape, poor sleep, lack of strength, weight gain, weak bones, easily traumatized body, depressed, stressed, poor metabolism, poor resistance",
-      "image": "assets/img/nicebody.png",
-      // nicebody.png
-      // on_board_3.png
     }
   ];
 
@@ -143,7 +145,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       // context, MaterialPageRoute(builder: (context) => const Step1View()), (route) => false,
                     //
                     // ),
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoginScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  MainTabView()));
                   },
                   child: Text(
                     "Start",

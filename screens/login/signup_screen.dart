@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_frontend/screens/login/complete_signup_screen.dart';
 import 'package:gofit_frontend/screens/login/login_screen.dart';
-
+// main_tab_view
+import 'package:gofit_frontend/screens/main_tab/main_tab_view.dart';
 class NewAccountScreen extends StatefulWidget {
   @override
   _NewAccountScreenState createState() => _NewAccountScreenState();
 }
 
 class _NewAccountScreenState extends State<NewAccountScreen> {
-  DateTime? _selectedDate; // تاريخ الميلاد المختار
+  DateTime? _selectedDate; //
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = (await showDatePicker(
@@ -153,38 +155,46 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                           ),
                         ),
                         SizedBox(height: 40),
-                        Container(
-                          height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 50),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Color.fromRGBO(30, 20, 40, 1.0),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Register",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w200,
-                                fontSize: 22,
-                              ),
+
+                        Positioned(
+                          bottom: 10,
+                          right: 10, // تغيير القيمة من left إلى right للزر next_icon
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CompleteProfileView()),
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/img/next_icon.png',
+                              width: 28,
+                              height: 28,
                             ),
                           ),
                         ),
-                        SizedBox(height: 55),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context, MaterialPageRoute(builder: (context) => LoginScreen()));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Colors.grey,
+                        SizedBox(height: 45),
+                        Positioned(
+                          bottom: 10,
+                          left: 10,
+                          child: InkWell(
+                            onTap: () {
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainTabView(),
+                                ),
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/img/goBackIcone.png',
+                              width: 28,
+                              height: 28,
                             ),
                           ),
                         ),
+
                       ],
                     ),
                   ),
