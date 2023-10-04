@@ -20,9 +20,10 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
-            colors: [
-              Color.fromRGBO(12, 10, 10, 1.0),
-              Color.fromRGBO(66, 11, 86, 0.90),
+            colors: [  Color.fromRGBO(48, 58, 30, 1.0),
+              Color.fromRGBO(56, 87, 4, 0.81),
+              Color.fromRGBO(56, 87, 4, 0.750),
+              Color.fromRGBO(56, 87, 4, 0.5019607843137255),
             ],
           ),
         ),
@@ -37,7 +38,7 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                 children: <Widget>[
                   Text(
                     "Let’s complete your profile",
-                    style: TextStyle(color: Colors.white, fontSize: 27),
+                    style: TextStyle(color: Colors.grey, fontSize:35 , fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
@@ -149,7 +150,7 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary:    Color.fromRGBO(30, 20, 40, 1.0),
+                          primary:      Color.fromRGBO(56, 87, 4, 0.8980392156862745),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0), // Adjust the border radius
                           ),

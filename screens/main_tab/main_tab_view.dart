@@ -113,7 +113,7 @@ class _MainTabViewState extends State<MainTabView> {
                           child: Text(
                             "Yes",
                             style: TextStyle(
-                              color:   Color.fromRGBO(66, 11, 86, 0.90),
+                              color:  Colors.black45,
                             ),
                           ),
                           onPressed: () {
@@ -128,7 +128,7 @@ class _MainTabViewState extends State<MainTabView> {
                           child: Text(
                             "No",
                             style: TextStyle(
-                              color:   Color.fromRGBO(66, 11, 86, 0.90),
+                              color:   Colors.black45,
                             ),
                           ),
                           onPressed: () {

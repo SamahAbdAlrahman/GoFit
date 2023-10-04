@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_frontend/screens/login/login_screen.dart';
-import '../../common/color_extension.dart';
+
 
 import 'package:gofit_frontend/screens/main_tab/main_tab_view.dart';
 class OnBoardingView extends StatefulWidget {
@@ -142,7 +142,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 ElevatedButton(
                   onPressed: () {
                     // Navigator.pushAndRemoveUntil(
-                      // context, MaterialPageRoute(builder: (context) => const Step1View()), (route) => false,
+                    // context, MaterialPageRoute(builder: (context) => const Step1View()), (route) => false,
                     //
                     // ),
                     Navigator.push(context, MaterialPageRoute(builder: (context) =>  MainTabView()));

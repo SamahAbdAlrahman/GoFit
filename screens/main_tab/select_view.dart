@@ -14,8 +14,10 @@ class SelectView extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             colors: [
-              Color.fromRGBO(12, 10, 10, 1.0),
-              Color.fromRGBO(66, 11, 86, 0.90),
+              Color.fromRGBO(48, 58, 30, 1.0),
+              Color.fromRGBO(56, 87, 4, 0.81),
+              Color.fromRGBO(56, 87, 4, 0.750),
+              Color.fromRGBO(56, 87, 4, 0.5019607843137255),
             ],
           ),
         ),
@@ -30,7 +32,7 @@ class SelectView extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Select Activity",
-                    style: TextStyle(color: Colors.white, fontSize: 37),
+                    style: TextStyle(color: Colors.grey, fontSize:35 , fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
@@ -101,7 +103,7 @@ class SelectView extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MealPlannerView(),
+                              builder: (context) =>  MealPlannerView(),
                             ),
                           );
                         },

@@ -10,55 +10,61 @@ class LoginScreen extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
+
             colors: [
-              Color.fromRGBO(12, 10, 10, 1.0),
-              Color.fromRGBO(66, 11, 86, 0.90),
+              // Color.fromRGBO(238, 227, 227, 1.0),
+              Color.fromRGBO(248, 96, 2, 1.0),
+              Color.fromRGBO(190, 57, 33, 1.0)
             ],
           ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 80),
+            SizedBox(height: 15),
+
             Padding(
               padding: EdgeInsets.all(20),
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+
+
                   Text(
                     "Login",
-                    style: TextStyle(color: Colors.white, fontSize: 40),
+                    style: TextStyle(color: Colors.white, fontSize:35 , fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            // SizedBox(height: 5),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(300),
                   ),
                 ),
                 child: Stack(
                   children: [
                     SingleChildScrollView(
                       child: Padding(
-                        padding: EdgeInsets.all(30),
+                        padding: EdgeInsets.all(40),
                         child: Column(
                           children: <Widget>[
-                            SizedBox(height: 60),
+                            SizedBox(height: 160),
                             Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color.fromRGBO(9, 8, 5, 0.80),
-                                    blurRadius: 20,
-                                    offset: Offset(0, 10),
+                                    color: Color.fromRGBO( 80, 78, 78, 1.0),
+                                    blurRadius: 35,
+                                    offset: Offset(0, 20),
                                   ),
                                 ],
                               ),
@@ -81,7 +87,10 @@ class LoginScreen extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                      border: Border(bottom: BorderSide(color: Color.fromRGBO(192, 202, 224, 1.0),)),
+                                      border: Border(bottom: BorderSide(
+                                        color: Color.fromRGBO(
+                                            190, 194, 203, 0.4823529411764706),
+                                      )),
                                     ),
                                     child: TextField(
                                       decoration: InputDecoration(
@@ -111,14 +120,15 @@ class LoginScreen extends StatelessWidget {
                               margin: EdgeInsets.symmetric(horizontal: 50),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                color: Color.fromRGBO(30, 20, 40, 1.0),
+                                color:  Color.fromRGBO(
+                                    246, 87, 14, 1.0),
                               ),
                               child: Center(
                                 child: Text(
                                   "Login",
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w200,
+                                    fontWeight: FontWeight.w300,
                                     fontSize: 22,
                                   ),
                                 ),
@@ -141,21 +151,31 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 10,
-                      left: 180,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(
-                          'assets/img/goBackIcone.png',
-                          width: 28,
-                          height: 28,
-                        ),
-                      ),
-                    ),
+
+                    // Positioned(
+                    //   bottom: 10,
+                    //   left: 180,
+                    //   child: InkWell(
+                    //     onTap: () {
+                    //       Navigator.pop(context);
+                    //     },
+                    //     child: Image.asset(
+                    //       'assets/img/goBackIcone.png',
+                    //       width: 28,
+                    //       height: 28,
+                    //     ),
+                    //   ),
+                    // ),
+
+
+
+
+
+
                   ],
+
+
+
                 ),
               ),
             ),
