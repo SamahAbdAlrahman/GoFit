@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
 
                   Text(
                     "Login",
-                    style: TextStyle(color: Colors.white, fontSize:35 , fontWeight: FontWeight.w300),
+       style: TextStyle(color: Colors.white, fontSize:35 , fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Color.fromRGBO( 80, 78, 78, 1.0),
-                                    blurRadius: 35,
+                                    blurRadius: 30,
                                     offset: Offset(0, 20),
                                   ),
                                 ],
@@ -134,6 +134,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+
                             SizedBox(height: 80),
                             Align(
                               alignment: Alignment.bottomCenter,

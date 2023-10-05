@@ -1,9 +1,12 @@
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+
 import 'package:gofit_frontend/screens/main_tab/main_tab_view.dart';
 import '../../common_widget/round_button.dart';
 import '../../common_widget/upcoming_workout_row.dart';
 import '../../common_widget/what_train_row.dart';
+import '../../common/colo_extension.dart';
 import 'package:gofit_frontend/screens/meal_planner/Breakfast.dart';
 import 'package:gofit_frontend/screens/meal_planner/Dinner.dart';
 import 'package:gofit_frontend/screens/meal_planner/Lunch.dart';
@@ -16,7 +19,7 @@ class MealPlannerView extends StatefulWidget {
 }
 
 class _MealPlannerViewState extends State<MealPlannerView> {
-  List Exerc = [
+  List whatArr = [
 
     {
       "title": "Breakfast",
@@ -52,61 +55,135 @@ class _MealPlannerViewState extends State<MealPlannerView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return Container(
-
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          colors: [
-            Color.fromRGBO(48, 58, 30, 1.0),
-            Color.fromRGBO(56, 87, 4, 0.81),
-            Color.fromRGBO(56, 87, 4, 0.750),
-            Color.fromRGBO(56, 87, 4, 0.5019607843137255),
-          ],
-        ),
-      ),
+      decoration:
+      BoxDecoration(    gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        colors: [
+          Color.fromRGBO(248, 96, 2, 1.0),
+          Color.fromRGBO(190, 57, 33, 1.0)
+        ],
+      ),),
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
               backgroundColor: Colors.transparent,
-            ),
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-
-              title: Text(
-                "Meal Plans",
-                style: TextStyle(color: Colors.white, fontSize: 35 , fontWeight: FontWeight.w400),
+              centerTitle: true,
+              elevation: 0,
+              // pinned: true,
+              leading: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MainTabView(),
+                    ),
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  height: 40,
+                  width: 40,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(200, 200, 200, 0.7),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Image.asset(
+                    "assets/img/black_btn.png",
+                    width: 15,
+                    height: 15,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
-            ),
-/////////////////////////////////////////////////////
+
+                title: Text(
+                  "Meal Plans",
+                  style: TextStyle(color: Colors.white,
+                      fontSize:26 , fontWeight: FontWeight.w300),
+                ),
+              ),
 
 
           ];
         },
-
-
-
-        //************************************************************************************************************
         body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+              color: TColor.white,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 50,
+                    height: 4,
+                    decoration: BoxDecoration(
+                        color: TColor.gray.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(3)),
+                  ),
                   SizedBox(
-                    height: media.width * 0.08,
+                    height: media.width * 0.05,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: TColor.primaryColor2.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Daily Plans Schedule",
+                          style: TextStyle(
+                              color: TColor.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          width: 70,
+                          height: 25,
+                          child: RoundButton(
+                            title: "Check",
+                            type: RoundButtonType.bgGradient,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            onPressed: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const ActivityTrackerView(),
+                              //   ),
+                              // );
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+
+                  SizedBox(
+                    height: media.width * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "What Do You Want to Eat ?",
+                        "What Do You Want to Train",
                         style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w400),
+                            color: TColor.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
                       ),
                     ],
                   ),
@@ -116,7 +193,7 @@ class _MealPlannerViewState extends State<MealPlannerView> {
                     shrinkWrap: true,
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      var wObj = Exerc[index] as Map? ?? {};
+                      var wObj = whatArr[index] as Map? ?? {};
                       return GestureDetector(
                         onTap: () {
                           // Navigate to the respective screen based on the index
@@ -158,42 +235,149 @@ class _MealPlannerViewState extends State<MealPlannerView> {
                   SizedBox(
                     height: media.width * 0.1,
                   ),
-
-                      Positioned(
-                        bottom: 10,
-                        left: 10,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainTabView(),
-                              ),
-                            );
-                          },
-                          child: Image.asset(
-                            'assets/img/goBackIcone.png',
-                            width: 28,
-                            height: 28,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-
-
-
+                ],
               ),
-              // SizedBox(height: 45),
-
             ),
-
           ),
-
         ),
-
+      ),
     );
   }
 
+  LineTouchData get lineTouchData1 => LineTouchData(
+    handleBuiltInTouches: true,
+    touchTooltipData: LineTouchTooltipData(
+      tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
+    ),
+  );
 
+  List<LineChartBarData> get lineBarsData1 => [
+    lineChartBarData1_1,
+    lineChartBarData1_2,
+  ];
+
+  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
+    isCurved: true,
+    color: TColor.white,
+    barWidth: 4,
+    isStrokeCapRound: true,
+    dotData: FlDotData(show: false),
+    belowBarData: BarAreaData(show: false),
+    spots: const [
+      FlSpot(1, 35),
+      FlSpot(2, 70),
+      FlSpot(3, 40),
+      FlSpot(4, 80),
+      FlSpot(5, 25),
+      FlSpot(6, 70),
+      FlSpot(7, 35),
+    ],
+  );
+
+  LineChartBarData get lineChartBarData1_2 => LineChartBarData(
+    isCurved: true,
+    color: TColor.white.withOpacity(0.5),
+    barWidth: 2,
+    isStrokeCapRound: true,
+    dotData: FlDotData(show: false),
+    belowBarData: BarAreaData(
+      show: false,
+    ),
+    spots: const [
+      FlSpot(1, 80),
+      FlSpot(2, 50),
+      FlSpot(3, 90),
+      FlSpot(4, 40),
+      FlSpot(5, 80),
+      FlSpot(6, 35),
+      FlSpot(7, 60),
+    ],
+  );
+
+  SideTitles get rightTitles => SideTitles(
+    getTitlesWidget: rightTitleWidgets,
+    showTitles: true,
+    interval: 20,
+    reservedSize: 40,
+  );
+
+  Widget rightTitleWidgets(double value, TitleMeta meta) {
+    String text;
+    switch (value.toInt()) {
+      case 0:
+        text = '0%';
+        break;
+      case 20:
+        text = '20%';
+        break;
+      case 40:
+        text = '40%';
+        break;
+      case 60:
+        text = '60%';
+        break;
+      case 80:
+        text = '80%';
+        break;
+      case 100:
+        text = '100%';
+        break;
+      default:
+        return Container();
+    }
+
+    return Text(text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+        ),
+        textAlign: TextAlign.center);
+  }
+
+  SideTitles get bottomTitles => SideTitles(
+    showTitles: true,
+    reservedSize: 32,
+    interval: 1,
+    getTitlesWidget: bottomTitleWidgets,
+  );
+
+  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    var style = TextStyle(
+      color: TColor.white,
+      fontSize: 12,
+    );
+    Widget text;
+    switch (value.toInt()) {
+      case 1:
+        text = Text('Sun', style: style);
+        break;
+      case 2:
+        text = Text('Mon', style: style);
+        break;
+      case 3:
+        text = Text('Tue', style: style);
+        break;
+      case 4:
+        text = Text('Wed', style: style);
+        break;
+      case 5:
+        text = Text('Thu', style: style);
+        break;
+      case 6:
+        text = Text('Fri', style: style);
+        break;
+      case 7:
+        text = Text('Sat', style: style);
+        break;
+      default:
+        text = const Text('');
+        break;
+    }
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 10,
+      child: text,
+    );
+  }
 }

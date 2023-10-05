@@ -13,18 +13,15 @@ class SelectView extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
-            colors: [
-              Color.fromRGBO(48, 58, 30, 1.0),
-              Color.fromRGBO(56, 87, 4, 0.81),
-              Color.fromRGBO(56, 87, 4, 0.750),
-              Color.fromRGBO(56, 87, 4, 0.5019607843137255),
+            colors: [    Color.fromRGBO(248, 96, 2, 1.0),
+              Color.fromRGBO(190, 57, 33, 1.0)
             ],
           ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 80),
+            SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.all(20),
               child: Column(
@@ -32,19 +29,19 @@ class SelectView extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Select Activity",
-                    style: TextStyle(color: Colors.grey, fontSize:35 , fontWeight: FontWeight.w300),
+                    style: TextStyle(color: Colors.white, fontSize:35 , fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 5),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(160),
                   ),
                 ),
                 child: Padding(
@@ -69,7 +66,7 @@ class SelectView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: Color.fromRGBO(9, 8, 5, 0.80),
+                                color: Color.fromRGBO(80, 78, 78, 1.0),
                                 blurRadius: 20,
                                 offset: Offset(0, 10),
                               ),
@@ -80,7 +77,8 @@ class SelectView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  'assets/img/what_3.png',
+                                  // 'assets/img/what_3.png',
+                                  'assets/img/on_board_3.png',
                                   width: 80,
                                   height: 80,
                                 ),
@@ -97,7 +95,7 @@ class SelectView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 25),
+                      SizedBox(height: 35),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -115,7 +113,7 @@ class SelectView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: Color.fromRGBO(9, 8, 5, 0.80),
+                                color: Color.fromRGBO(80, 78, 78, 1.0),
                                 blurRadius: 20,
                                 offset: Offset(0, 10),
                               ),
@@ -126,7 +124,7 @@ class SelectView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  'assets/img/s1.jpg',
+                                  'assets/img/m_4.png',
                                   width: 80,
                                   height: 80,
                                 ),

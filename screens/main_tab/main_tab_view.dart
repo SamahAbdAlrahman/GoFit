@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:gofit_frontend/screens/login/signup_screen.dart';
 import 'package:gofit_frontend/screens/login/login_screen.dart';
-import 'package:gofit_frontend/screens/login/on_boarding_view.dart';
 import '../workout_tracker/workout_tracker_view.dart';
 
 class MainTabView extends StatefulWidget {
@@ -17,7 +16,8 @@ class MainTabView extends StatefulWidget {
 
 class _MainTabViewState extends State<MainTabView> {
   int selectTab = 0;
-  final PageStorageBucket pageBucket = PageStorageBucket(); 
+  final PageStorageBucket pageBucket = PageStorageBucket();
+
   Widget currentTab = SelectView();
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,8 @@ class _MainTabViewState extends State<MainTabView> {
                 borderRadius: BorderRadius.circular(35),
                 boxShadow: const [
                   BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,)
+                    color: Colors.black12,
+                    blurRadius: 2,)
                 ]),
             child: Icon(Icons.search,color: TColor.white, size: 35, ),
           ),
@@ -49,105 +49,84 @@ class _MainTabViewState extends State<MainTabView> {
       ),
       bottomNavigationBar: BottomAppBar(
           child: Container(
-        decoration: BoxDecoration(color: TColor.white, boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, -2))
-        ]),
-        height: kToolbarHeight,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TabButton(
-                icon: "assets/img/home_tab.png",
-                selectIcon: "assets/img/home_tab_select.png",
-                isActive: selectTab == 0,
-                onTap: () {
-                  selectTab = 0;
-                  currentTab =  SelectView();
-                  if (mounted) {
-                    setState(() {});
-                  }
-                }),
-
-            // TabButton(
-            //     icon: "assets/img/activity_tab.png",
-            //     selectIcon: "assets/img/activity_tab_select.png",
-            //     isActive: selectTab == 1,
-            //     onTap: () {
-            //       selectTab = 1;
-            //       //SelectView
-            //       currentTab = const SelectView();
-            //       if (mounted) {
-            //         setState(() {});
-            //       }
-            //     }),
-
-              const  SizedBox(width: 40,),
-            // TabButton(
-            //     icon: "assets/img/camera_tab.png",
-            //     selectIcon: "assets/img/camera_tab_select.png",
-            //     isActive: selectTab == 2,
-            //     onTap: () {
-            //       selectTab = 2;
-            //        currentTab = NewAccountScreen();
-            //       if (mounted) {
-            //         setState(() {});
-            //       }
-            //     }),
+            decoration: BoxDecoration(color: TColor.white, boxShadow: const [
+              BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, -2))
+            ]),
+            height: kToolbarHeight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TabButton(
+                    icon: "assets/img/home_tab.png",
+                    selectIcon: "assets/img/home_tab.png",
+                    isActive: selectTab == 0,
+                    onTap: () {
+                      selectTab = 0;
+                      currentTab =  SelectView();
+                      if (mounted) {
+                        setState(() {});
+                      }
+                    }),
 
 
-            TabButton(
-              icon: "assets/img/profile_tab.png",
-              selectIcon: "assets/img/profile_tab_select.png",
-              isActive: selectTab == 3,
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(""),
-                      content: Text("Do you have an account ?", style: TextStyle(
-                        color:  Colors.black54,
-                      ),),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text(
-                            "Yes",
-                            style: TextStyle(
-                              color:  Colors.black45,
+
+                const  SizedBox(width: 40,),
+
+
+
+                TabButton(
+                  icon: "assets/img/profile_tab.png",
+                  selectIcon: "assets/img/profile_tab_select.png",
+                  isActive: selectTab == 3,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(""),
+                          content: Text("Do you have an account ?", style: TextStyle(
+                            color:  Colors.black54,
+                          ),),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text(
+                                "Yes",
+                                style: TextStyle(
+                                  color:  Colors.black45,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                                );
+                              },
                             ),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => LoginScreen()),
-                            );
-                          },
-                        ),
-                        TextButton(
-                          child: Text(
-                            "No",
-                            style: TextStyle(
-                              color:   Colors.black45,
+                            TextButton(
+                              child: Text(
+                                "No",
+                                style: TextStyle(
+                                  color:   Colors.black45,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => NewAccountScreen()),
+                                );
+                              },
                             ),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => NewAccountScreen()),
-                            );
-                          },
-                        ),
-                      ],
+                          ],
+                        );
+                      },
                     );
                   },
-                );
-              },
+                ),
+              ],
             ),
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
