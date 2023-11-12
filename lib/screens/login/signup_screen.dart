@@ -1,29 +1,108 @@
+import 'dart:io'; // Import for File
 import 'package:flutter/material.dart';
-import 'package:gofit_frontend/screens/login/complete_signup_screen.dart';
-import 'package:gofit_frontend/screens/login/login_screen.dart';
-// main_tab_view
-import 'package:gofit_frontend/screens/main_tab/main_tab_view.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'login_screen.dart';
+
 class NewAccountScreen extends StatefulWidget {
   @override
   _NewAccountScreenState createState() => _NewAccountScreenState();
 }
 
 class _NewAccountScreenState extends State<NewAccountScreen> {
-  DateTime? _selectedDate; //
+  //
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = (await showDatePicker(
-      context: context,
-      initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    ))!;
-    if (picked != null && picked != _selectedDate) {
+  //
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  // TextEditingController aboutController = TextEditingController();
+  // File? imageFile;
+  // TextEditingController eduController = TextEditingController();
+  // TextEditingController heightController = TextEditingController();
+  // TextEditingController weightController = TextEditingController();
+//
+//
+
+  //
+  bool _isNotValidate = false;
+
+  void registerUser() async {
+
+
+    if (emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        usernameController.text.isNotEmpty) {
+      var regBody = {
+        "email": emailController.text,
+        "password": passwordController.text,
+        "username": usernameController.text,
+        // "about": aboutController.text,
+        // "img": imageFile?.path ?? "",
+        //
+        // "edu": eduController.text,
+        // "Height": heightController.text,
+        // "weight": weightController.text,
+      };
+      // final Uri apiUrl = Uri.parse('http://192.168.0.108:3000/register');
+      final Uri apiUrl = Uri.parse('http://192.168.111.1:3000/user/register');
+      http://localhost:5000/user/register
+      var response = await http.post(
+        apiUrl,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(regBody),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Registration successful
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(""),
+              content: Text("Create your account successfully", style: TextStyle(color: Colors.black54),),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      color: Colors.black45,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        print("Something Went Wrong. Status code: ${response.statusCode}");
+      }
+    } else {
       setState(() {
-        _selectedDate = picked;
+        _isNotValidate = true;
       });
     }
   }
+
+  // Future<void> selectImage() async {
+  //   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       imageFile = File(pickedFile.path);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -34,57 +113,56 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             colors: [
-              Color.fromRGBO(12, 10, 10, 1.0),
-              Color.fromRGBO(66, 11, 86, 0.90),
+              Color.fromRGBO(248, 96, 2, 1.0),
+              Color.fromRGBO(190, 57, 33, 1.0),
             ],
           ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 80),
+            SizedBox(height: 17),
             Padding(
               padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(height: 10),
                   Text(
                     "Create Account",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 40,
+                      fontSize: 30,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(100),
                   ),
                 ),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.all(35),
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 60),
+                        SizedBox(height: 89),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: Color.fromRGBO(9, 8, 5, 0.80),
-                                blurRadius: 20,
-                                offset: Offset(0, 10),
+                                color: Color.fromRGBO(80, 78, 78, 1.0),
+                                blurRadius: 30,
+                                offset: Offset(0, 20),
                               ),
                             ],
                           ),
@@ -93,108 +171,174 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                               Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    labelText: "Full Name",
-                                    prefixIcon: Icon(Icons.person),
-                                    border: InputBorder.none,
+                                  border: Border(
+                                    bottom: BorderSide(color: Colors.grey[200]!),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
-                                ),
                                 child: TextField(
+                                  controller: emailController,
                                   decoration: InputDecoration(
                                     labelText: "Email",
-                                    prefixIcon: Icon(Icons.email),
-                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.email), // Fix icon import
+                                    border: InputBorder.none, // Fix InputBorder
                                   ),
                                 ),
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
+                                  border: Border(
+                                    bottom: BorderSide(color: Colors.grey[200]!),
+                                  ),
                                 ),
                                 child: TextField(
+                                  controller: passwordController,
                                   obscureText: true,
                                   decoration: InputDecoration(
+
                                     labelText: "Password",
-                                    prefixIcon: Icon(Icons.lock),
-                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.lock), // Fix icon import
+                                    border: InputBorder.none, // Fix InputBorder
                                   ),
                                 ),
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
+                                  border: Border(
+                                    bottom: BorderSide(color: Colors.grey[200]!),
+                                  ),
                                 ),
-                                child: GestureDetector(
-                                  onTap: () => _selectDate(context),
-                                  child: InputDecorator(
-                                    decoration: InputDecoration(
-                                      labelText: "Date of Birth",
-                                      prefixIcon: Icon(Icons.calendar_today),
-                                      border: InputBorder.none,
-                                    ),
-                                    child: Text(
-                                      _selectedDate != null
-                                          ? "${_selectedDate!.toLocal()}".split(' ')[0]
-                                          : 'Select Date',
-                                    ),
+                                child: TextField(
+                                  controller: usernameController,
+                                  decoration: InputDecoration(
+                                    labelText: "Username",
+                                    prefixIcon: Icon(Icons.person), // Fix icon import
+                                    border: InputBorder.none, // Fix InputBorder
                                   ),
                                 ),
                               ),
+                              // Container(
+                              //   alignment: Alignment.center,
+                              //   child: imageFile == null
+                              //       ? Text("No image selected.")
+                              //       : CircleAvatar(
+                              //     radius: 50,
+                              //     backgroundImage: FileImage(imageFile!),
+                              //   ),
+                              // ),
+                              // SizedBox(height: 20),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     selectImage();
+                              //   },
+                              //   child: Container(
+                              //     height: 30,
+                              //     decoration: BoxDecoration(
+                              //       color: Colors.blue,
+                              //       borderRadius: BorderRadius.circular(5),
+                              //     ),
+                              //     child: Center(
+                              //       child: Text(
+                              //         "Select Image",
+                              //         style: TextStyle(
+                              //           color: Colors.white,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Container(
+                              //   padding: EdgeInsets.all(10),
+                              //   decoration: BoxDecoration(
+                              //     border: Border(
+                              //       bottom: BorderSide(color: Colors.grey[200]!),
+                              //     ),
+                              //   ),
+                              //   child: TextField(
+                              //     controller: aboutController,
+                              //     decoration: InputDecoration(
+                              //       labelText: "About",
+                              //       prefixIcon: Icon(Icons.info), // Fix icon import
+                              //       border: InputBorder.none, // Fix InputBorder
+                              //     ),
+                              //   ),
+                              // ),
+                              // Container(
+                              //   padding: EdgeInsets.all(10),
+                              //   decoration: BoxDecoration(
+                              //     border: Border(
+                              //       bottom: BorderSide(color: Colors.grey[200]!),
+                              //     ),
+                              //   ),
+                              //   child: TextField(
+                              //     controller: eduController,
+                              //     decoration: InputDecoration(
+                              //       labelText: "Education",
+                              //       prefixIcon: Icon(Icons.school), // Fix icon import
+                              //       border: InputBorder.none, // Fix InputBorder
+                              //     ),
+                              //   ),
+                              // ),
+                              // Container(
+                              //   padding: EdgeInsets.all(10),
+                              //   decoration: BoxDecoration(
+                              //     border: Border(
+                              //       bottom: BorderSide(color: Colors.grey[200]!),
+                              //     ),
+                              //   ),
+                              //   child: TextField(
+                              //     controller: heightController,
+                              //     decoration: InputDecoration(
+                              //       labelText: "Height",
+                              //       prefixIcon: Icon(Icons.height), // Fix icon import
+                              //       border: InputBorder.none, // Fix InputBorder
+                              //     ),
+                              //   ),
+                              // ),
+                              // Container(
+                              //   padding: EdgeInsets.all(10),
+                              //   decoration: BoxDecoration(
+                              //     border: Border(
+                              //       bottom: BorderSide(color: Colors.grey[200]!),
+                              //     ),
+                              //   ),
+                              //   child: TextField(
+                              //     controller: weightController,
+                              //     decoration: InputDecoration(
+                              //       labelText: "Weight",
+                              //       prefixIcon: Icon(Icons.line_weight), // Fix icon import
+                              //       border: InputBorder.none, // Fix InputBorder
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 40),
-
-                        Positioned(
-                          bottom: 10,
-                          right: 10, // تغيير القيمة من left إلى right للزر next_icon
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => CompleteProfileView()),
-                              );
-                            },
-                            child: Image.asset(
-                              'assets/img/next_icon.png',
-                              width: 28,
-                              height: 28,
+                        SizedBox(height: 60),
+                        GestureDetector(
+                          onTap: () {
+                            registerUser();
+                          },
+                          child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(horizontal: 50),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Color.fromRGBO(246, 87, 14, 1.0),
                             ),
-                          ),
-                        ),
-                        SizedBox(height: 45),
-                        Positioned(
-                          bottom: 10,
-                          left: 10,
-                          child: InkWell(
-                            onTap: () {
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MainTabView(),
+                            child: Center(
+                              child: Text(
+                                "Register",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 22,
                                 ),
-                              );
-                            },
-                            child: Image.asset(
-                              'assets/img/goBackIcone.png',
-                              width: 28,
-                              height: 28,
+                              ),
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -207,3 +351,4 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
     );
   }
 }
+

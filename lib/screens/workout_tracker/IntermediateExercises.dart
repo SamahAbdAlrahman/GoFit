@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:gofit_frontend/common/colo_extension.dart';
 import 'package:gofit_frontend/common_widget/round_button.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 
 class IntermediateExercises extends StatefulWidget {
   // final Map dObj;
@@ -12,9 +18,39 @@ class IntermediateExercises extends StatefulWidget {
 }
 
 class _WorkoutDetailViewState extends State<IntermediateExercises> {
+  TextEditingController exerciseName = TextEditingController();
+  TextEditingController description = TextEditingController();
+  TextEditingController videoPath = TextEditingController();
+  bool _isNotValidate = false;
+  Future<List<ExerciseItem>> fetchExercises() async {
+    final apiUrl = Uri.parse('http://192.168.111.1:3000/intermediateexercises'); // Replace with your API endpoint
+    final response = await http.get(apiUrl);
 
-
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      return data.map((exercise) {
+        return ExerciseItem(
+          exerciseName: exercise['exerciseName'],
+          description: exercise['description'],
+          videoPath: exercise['videoPath'],
+        );
+      }).toList();
+    } else {
+      throw Exception('Failed to load exercises');
+    }
+  }
+  // final List<ExerciseItem> exerciseItems = [];
+  List<ExerciseItem> exerciseItems = [];
   @override
+  void initState() {
+    super.initState();
+    // Call fetchExercises when the page is opened
+    fetchExercises().then((exercises) {
+      setState(() {
+        exerciseItems = exercises;
+      });
+    });
+  }
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return Container(
@@ -120,6 +156,18 @@ class _WorkoutDetailViewState extends State<IntermediateExercises> {
 
                         ],
                       ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: exerciseItems.length,
+                        itemBuilder: (context, index) {
+                          return ExerciseListItem(
+                              exerciseName: exerciseItems[index].exerciseName,
+                              description: exerciseItems[index].description,
+                              videoPath:exerciseItems[index].videoPath
+                          );
+                        },
+                      ),
 
                     ],
                   ),
@@ -133,3 +181,52 @@ class _WorkoutDetailViewState extends State<IntermediateExercises> {
     );
   }
 }
+class ExerciseItem {
+  final String exerciseName;
+  final String description;
+  final String videoPath;
+
+  ExerciseItem({
+    required this.exerciseName,
+    required this.description,
+    required this.videoPath,
+  });
+}
+
+// Create a widget to display each exercise item
+class ExerciseListItem extends StatelessWidget {
+  final String exerciseName;
+  final String description;
+  final String videoPath;
+
+  ExerciseListItem({
+    required this.exerciseName,
+    required this.description,
+    required this.videoPath,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.file(
+          File(videoPath), // Load the image from the file path
+          width: 100,
+          height: 100,
+          fit: BoxFit.cover,
+        ),
+        SizedBox(height: 8),
+        Text(
+          description,
+          style: TextStyle(
+            color: Colors.black87,
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        SizedBox(height: 16),
+      ],
+    );
+  }
+}
+
